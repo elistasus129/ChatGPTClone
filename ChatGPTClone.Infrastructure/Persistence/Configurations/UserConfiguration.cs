@@ -1,5 +1,5 @@
 using ChatGPTClone.Domain.Entities;
-using ChatGPTClone.Domain.Identity;
+using ChatGPTClone.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -52,8 +52,8 @@ public class UserConfiguration : IEntityTypeConfiguration<AppUser>
         builder.HasMany<AppUserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
 
         // Each User can have many ChatSessions
-        builder.HasMany<ChatSession>(x => x.ChatSessions)
-            .WithOne(cs => cs.AppUser)
+        builder.HasMany<ChatSession>()
+            .WithOne()
             .HasForeignKey(x => x.AppUserId);
 
         // Common Properties
